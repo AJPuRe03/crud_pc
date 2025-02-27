@@ -2,6 +2,8 @@
 {% block title %}Lista de componentes{% endblock %}
 {% block content %}
 
+
+<a href="{{ url_for('create_componente')}}" class="btn btn-success">Agregar Componente</a>
 <br>
 <table class="table table-bordered">
     <thead>
@@ -9,6 +11,7 @@
         <th>Nombre</th>
         <th>Tipo</th>
         <th>Descripcion</th>
+        <th>Acciones</th>
     </thead>
     <tbody>
         {% for componente in componentes %}

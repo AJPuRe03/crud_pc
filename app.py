@@ -36,7 +36,25 @@ def index():
     #retornar 
     componentes = Componentes.query.all()
     return render_template('index.html', componentes = componentes)
+    
+    
+@app.route('/componentes/new', methods=['GET','POST'])
+def create_componente():
+    if request.method == 'POST':
+        #Agregar Componente
+        id = request.form['id']
+        nombre = request.form['nombre']
+        tipo = request.form['tipo']
+        descripcion = request.form['descripcion']
 
+        nvo_componente = Componentes(id=id, nombre=nombre, tipo=tipo, descripcion=descripcion)
+
+        db.session.add(nvo_componente)
+        db.session.commit()
+    
+        return redirect(url_for('index'))
+    return render_template('create_componente.html')
 
 if __name__ == '__main__':
+    #app.run(host="0.0.0.0", port=5000, debug=True)
     app.run(debug=True)
