@@ -37,7 +37,7 @@ def index():
     componentes = Componentes.query.all()
     return render_template('index.html', componentes = componentes)
     
-    
+
 @app.route('/componentes/new', methods=['GET','POST'])
 def create_componente():
     if request.method == 'POST':
@@ -54,6 +54,27 @@ def create_componente():
     
         return redirect(url_for('index'))
     return render_template('create_componente.html')
+
+#Eliminar componente
+@app.route('/componentes/delete/<int:id>')
+def delete_componente(id):
+    componente = Componentes.query.get(id)
+    if componente:
+        db.session.delete(componente)
+        db.session.commit()
+    return redirect(url_for('index'))
+
+#Actualizar componente
+@app.route('/componentes/update/<int:id>', methods=['GET','POST'])
+def update_componente(id):
+    componente = Componentes.query.get(id)
+    if request.method == 'POST':
+        componente.nombre = request.form['nombre']
+        componente.tipo = request.form['tipo']
+        componente.descripcion = request.form['descripcion']
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('update_componente.html', componente=componente)
 
 if __name__ == '__main__':
     #app.run(host="0.0.0.0", port=5000, debug=True)

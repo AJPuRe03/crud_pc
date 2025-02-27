@@ -20,6 +20,10 @@
             <td>{{ componente.nombre }}</td>
             <td>{{ componente.tipo }}</td>
             <td>{{ componente.descripcion }}</td>
+            <td>
+                <a href="{{ url_for('delete_componente',id = componente.id)}}" class="btn btn-danger">Eliminar Componente</a>
+                <a href="{{ url_for('update_componente',id = componente.id)}}" class="btn btn-success">Actualizar Componente</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
